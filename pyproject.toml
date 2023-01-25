@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "template-aiogram"
+version = "0.1.0"
+description = "Шаблон телеграм бота"
+authors = ["FAST-CODE-GITHUB <fast.code.auth@gmail.com>"]
+readme = "README.md"
+packages = [{include = "bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiogram = "3.0.0b6"
+redis = "^4.4.0"
+sqlalchemy = "^1.4.46"
+aioredis = "^2.0.1"
+asyncpg = "^0.27.0"
+alembic = "^1.9.1"
+flake8 = "^6.0.0"
+matplotlib = "^3.6.3"
+ujson = "^5.7.0"
+
+[tool.poetry.scripts]
+bot = "bot.app:bot_run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

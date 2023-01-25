@@ -1,0 +1,6 @@
+[flake8]
+min_python_version = 3.10.9
+max-line-length = 120
+
+extend-exclude =
+    bot/db/migrations/*
