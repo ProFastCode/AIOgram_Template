@@ -4,22 +4,24 @@ from logging import INFO, basicConfig
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
-from aioredis import Redis
+from redis import Redis
 from sqlalchemy.engine import URL
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
 from bot.handlers import user_router, moderator_router, administrator_router
-from bot.loader import config
 from bot.middlewares import RegistrationMiddleware, AntiFloodMiddleware
-from bot.utils.bot_commands import set_commands
+from bot.config import load_config
 
 
 async def main() -> None:
     # Логирование
     basicConfig(level=INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
 
-    # PostgreSQL
+    # Конфигурация
+    config = load_config("bot.ini")
+
+    # База данных
     postgres_url = URL.create(
         "postgresql+asyncpg",
         username=config.db.user,
@@ -40,18 +42,22 @@ async def main() -> None:
     # Бот, Диспетчер
     bot = Bot(config.bot.token, parse_mode="HTML")
     dp = Dispatcher(storage=RedisStorage(redis=redis))
+
     # Зарегистрировать ПО промежуточного слоя
-    dp.message.outer_middleware(RegistrationMiddleware())
-    dp.message.middleware(AntiFloodMiddleware())
+    dp.message.outer_middleware(RegistrationMiddleware(config.bot.administrator_id, config.bot.moderator_id))
+    dp.message.middleware(AntiFloodMiddleware(redis))
 
     # Регистрация маршрутизаторов
-    dp.include_router(user_router)
-    dp.include_router(moderator_router)
     dp.include_router(administrator_router)
+    dp.include_router(moderator_router)
+    dp.include_router(user_router)
 
-    # Запуск навсегда
-    dp.startup.register(set_commands)
-    await dp.start_polling(bot, db_pool=db_pool, redis=redis)
+    # Запуск
+    try:
+        await dp.start_polling(bot, db_pool=db_pool)
+    finally:
+        await dp.storage.close()
+        await bot.session.close()
 
 
 def bot_run():

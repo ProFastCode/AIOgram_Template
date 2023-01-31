@@ -39,6 +39,3 @@ def load_config(path: str):
         db=DB(**file_config["db"]),
         redis=Redis(**file_config["redis"]),
     )
-
-
-config = load_config("bot.ini")
