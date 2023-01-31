@@ -19,8 +19,6 @@ class User(Base):
     __tablename__ = "users"  # Имя таблицы
     id = Column(BigInteger, nullable=False, primary_key=True)  # telegram id пользователя
     role = Column(Enum(Role), default=Role.USER)  # Роль пользователя в проекте
-    balance = Column(Float, default=0.00)  # Баланс пользователя
-    topped_up = Column(Float, default=0.00)  # Общая сумма пополнений пользователя
     update_date = Column(DateTime, default=dt.today(), onupdate=dt.today())  # Дата обновления пользователя
     registration_date = Column(DateTime, default=dt.today())  # Дата регистрации пользователя
 
@@ -33,23 +31,3 @@ class User(Base):
         :return: str
         """
         return f"User ID: {self.id}"
-
-
-class Transaction(Base):
-    """
-    Модель транзакций пользователей
-    """
-    __tablename__ = "transactions"  # Имя таблицы
-    id = Column(BigInteger, nullable=False, primary_key=True)  # id транзакции
-    date = Column(DateTime, default=dt.today())  # Дата транзакции
-    amount = Column(Float, nullable=False)  # Сумма транзакции
-
-    def __str__(self) -> str:
-        """
-        Возвращает id транзакции
-
-        :param self: Transaction
-
-        :return: str
-        """
-        return f"Transaction ID: {self.id}"

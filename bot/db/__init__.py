@@ -1,4 +1,4 @@
 from .base import Base, metadata
-from .models import Role, User, Transaction
+from .models import Role, User
 
-__all__ = ["Role", "User", "Transaction", "Base", "metadata"]
+__all__ = ["Role", "User", "Base", "metadata"]
