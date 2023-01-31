@@ -6,8 +6,8 @@ USER_PANEL = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(
-                text="Пополнить",
-                callback_data=UserCallback(action=UserAction.TOP_UP).pack(),
+                text="Панель пользователя",
+                callback_data=UserCallback(action=UserAction.FUTURE).pack(),
             )
         ],
     ],
