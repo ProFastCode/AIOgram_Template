@@ -4,7 +4,7 @@ from logging import INFO, basicConfig
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
-from redis import Redis
+from aioredis import Redis
 from sqlalchemy.engine import URL
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
@@ -32,8 +32,8 @@ async def main() -> None:
     engine = create_async_engine(url=postgres_url, echo=False, pool_pre_ping=True)
     db_pool = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
 
-    # Хранилище Redis
-    redis = Redis(
+    # Хранилище
+    storage = Redis(
         host=config.redis.host,
         username=config.redis.username,
         password=config.redis.password,
@@ -41,23 +41,19 @@ async def main() -> None:
 
     # Бот, Диспетчер
     bot = Bot(config.bot.token, parse_mode="HTML")
-    dp = Dispatcher(storage=RedisStorage(redis=redis))
+    dp = Dispatcher(storage=RedisStorage(redis=storage))
 
     # Зарегистрировать ПО промежуточного слоя
     dp.message.outer_middleware(RegistrationMiddleware(config.bot.administrator_id, config.bot.moderator_id))
-    dp.message.middleware(AntiFloodMiddleware(redis))
+    dp.message.middleware(AntiFloodMiddleware(storage))
 
     # Регистрация маршрутизаторов
     dp.include_router(administrator_router)
     dp.include_router(moderator_router)
     dp.include_router(user_router)
 
-    # Запуск
-    try:
-        await dp.start_polling(bot, db_pool=db_pool)
-    finally:
-        await dp.storage.close()
-        await bot.session.close()
+    # Запуск навсегда
+    await dp.start_polling(bot, db_pool=db_pool)
 
 
 def bot_run():

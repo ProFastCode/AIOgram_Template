@@ -13,7 +13,7 @@ router = Router()
 router.message.filter(RoleCheckFilter(Role.USER))
 
 # Регистрация обработчиков
-router.message.register(user_panel, CommandStart())
+router.message.register(user_panel, CommandStart(), flags={'anti_flood': 5})
 router.callback_query.register(button_user_panel,
                                UserCallback.filter(F.action == UserAction.FUTURE))
 

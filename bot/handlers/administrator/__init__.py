@@ -13,7 +13,7 @@ router = Router()
 router.message.filter(RoleCheckFilter(Role.ADMINISTRATOR))
 
 # Регистрация обработчиков
-router.message.register(administrator_panel, Command('administrator_panel'))
+router.message.register(administrator_panel, Command('administrator_panel'), flags={'anti_flood': 5})
 router.callback_query.register(button_administrator_panel,
                                AdministratorCallback.filter(F.action == AdministratorAction.FUTURE))
 

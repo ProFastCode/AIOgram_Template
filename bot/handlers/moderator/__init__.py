@@ -13,7 +13,7 @@ router = Router()
 router.message.filter(RoleCheckFilter(Role.MODERATOR))
 
 # Регистрация обработчиков
-router.message.register(moderator_panel, Command("moderator_panel"))
+router.message.register(moderator_panel, Command("moderator_panel"), flags={'anti_flood': 5})
 router.callback_query.register(button_moderator_panel,
                                ModeratorCallback.filter(F.action == ModeratorAction.FUTURE))
 

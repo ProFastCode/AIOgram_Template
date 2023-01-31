@@ -25,6 +25,6 @@ class AntiFloodMiddleware(BaseMiddleware):
             if not redis_get:
                 await self.redis.set(f"anti_flood:{event.from_user.id}", 1, anti_flood)
             else:
-                return await event.answer(f"Сработала защита от спама, ожидай {anti_flood}.")
+                return await event.answer(f"<b>Сработала защита от спама, ожидай {anti_flood}.</b>")
 
         return await handler(event, data)
