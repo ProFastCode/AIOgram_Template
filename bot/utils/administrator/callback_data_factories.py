@@ -8,10 +8,7 @@ class AdministratorAction(IntEnum):
     Действия администратора
     """
 
-    MAILING_LIST = 0
-    STATISTICS = 1
-    NEW_USERS_IN_WEEK = 2
-    EARNINGS = 3
+    FUTURE = 0
 
 
 class AdministratorCallback(CallbackData, prefix="administrator"):

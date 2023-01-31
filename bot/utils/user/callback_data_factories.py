@@ -8,7 +8,7 @@ class UserAction(IntEnum):
     Действия пользователя
     """
 
-    TOP_UP = 0
+    FUTURE = 0
 
 
 class UserCallback(CallbackData, prefix="user"):

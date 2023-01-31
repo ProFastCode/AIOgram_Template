@@ -19,7 +19,7 @@ async def main() -> None:
     basicConfig(level=INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
 
     # Конфигурация
-    config = load_config("bot.ini")
+    config = load_config("config.ini")
 
     # База данных
     postgres_url = URL.create(

@@ -8,7 +8,7 @@ class ModeratorAction(IntEnum):
     Действия модератора
     """
 
-    MAILING_LIST = 0
+    FUTURE = 0
 
 
 class ModeratorCallback(CallbackData, prefix="moderator"):

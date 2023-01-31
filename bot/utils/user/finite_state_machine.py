@@ -6,4 +6,4 @@ class UserStates(StatesGroup):
     Состояния пользователя
     """
 
-    waiting_for_top_up_amount = State()
+    waiting_future = State()

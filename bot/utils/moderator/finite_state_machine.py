@@ -6,4 +6,4 @@ class ModeratorStates(StatesGroup):
     Состояния модератора
     """
 
-    waiting_mailing_content = State()
+    waiting_future = State()
