@@ -4,14 +4,14 @@ from logging import INFO, basicConfig
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
-from aioredis import Redis
+from redis.asyncio.client import Redis
 from sqlalchemy.engine import URL
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
+from bot.config import load_config
 from bot.handlers import user_router, moderator_router, administrator_router
 from bot.middlewares import RegistrationMiddleware, AntiFloodMiddleware
-from bot.config import load_config
 
 
 async def main() -> None:
