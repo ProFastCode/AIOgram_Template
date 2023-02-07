@@ -19,7 +19,7 @@ async def main() -> None:
     basicConfig(level=INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
 
     # Конфигурация
-    config = load_config("config.ini")
+    config = load_config("bot.ini")
 
     # База данных
     postgres_url = URL.create(
@@ -33,19 +33,20 @@ async def main() -> None:
     db_pool = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
 
     # Хранилище
-    storage = Redis(
+    redis = Redis(
         host=config.redis.host,
         username=config.redis.username,
         password=config.redis.password,
     )
+    storage = RedisStorage(redis=redis)
 
     # Бот, Диспетчер
     bot = Bot(config.bot.token, parse_mode="HTML")
-    dp = Dispatcher(storage=RedisStorage(redis=storage))
+    dp = Dispatcher(storage=storage)
 
     # Зарегистрировать ПО промежуточного слоя
     dp.message.outer_middleware(RegistrationMiddleware(config.bot.administrator_id, config.bot.moderator_id))
-    dp.message.middleware(AntiFloodMiddleware(storage))
+    dp.message.middleware(AntiFloodMiddleware(redis))
 
     # Регистрация маршрутизаторов
     dp.include_router(administrator_router)
