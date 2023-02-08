@@ -1,33 +1,27 @@
-# **Шаблон для телеграм бота**
+# Шаблон для телеграм бота с aiogram
 
 ## TODO:
-    1. Добавить анти-флуд без Redis
+1. Добавить анти-флуд без Redis
 
-## **Что есть в шаблоне бота ?**
-     1. Анти-флуд(Redis, Middleware)
-     2. База данных(Postgresql, SQLAlchemy)
-     3. Регистрация(Middleware)
-     4. Система ролей(USER, MODERATOR, ADMINISTRATOR)
-     5. Проверка типа чата(Filter)
-     6. Панель администратора(Просмотр статистики в виде графиков) и модератора(Рассылка)
-
-## **Используемые библиотеки**
- 1. aiogram **3.0.0b6** *Modern and fully asynchronous framework for Telegram Bot API*
- 2. redis **4.4.2** *Python client for Redis database and key-value store*
- 3. aioredis **2.0.1**  *asyncio (PEP 3156) Redis support*
- 4. sqlalchemy **1.4.46** *Database Abstraction Library*
- 5. alembic **1.9.1**  *A database migration tool for SQLAlchemy.*
- 6. flake8 **6.0.0** *the modular source code checker: pep8 pyflakes and co*
- 7. asyncpg **0.27.0** *An asyncio PostgreSQL driver*
- 8. matplotlib **3.6.3** *Python plotting package*
+## Содержание шаблона
+1. **Db** - *Содержит начальную модель пользоватля и заросы для работы с данными модели, а так-же миграции*
+2. **Utils** - *Распределены по ролям(Administrator, Moderator, User) позваляет удобно создавать состояния пользователя и обрабатывать данные обратной связи*
+3. **Filters** - *Проверка типа чата и роли пользователя*
+4. **Handlers** - *Распределены по ролям(Administrator, Moderator, User) имеют начальную реализацию, что бы сразу приступить к разработке, а так-же выставлен анти-флуд на 5сек.*
+5. **Keyboards** - *Распределены по ролям(Administrator, Moderator, User) имеют начальную реализацию, в виде инлайн кнопок, если ваше меню динамическое, используйте функции и билдер меню.*
+6. **Middlewares** - *Анти-флуд(Исполнен при помощи Redis), Регистрация нового пользователя*
 
 
-## **Установка, настройка и запуск**
-    1. Установите базу данных(БД) PostgreSQL и создайте БД "bot_db"
-    2. Установите Redis, Если у вас Windows используйте WSL
-    3. Установите Poetry - Альтернатива pip
-    4. Что бы установить все зависимости используйте комманду "poetry install"
-    5. Настройте файл конфигурации bot.ini
-    6. Проведите миграции используя комманду "make migrate" Если у вас Windows, установите make
-    7. Для запуска используйте комманду "poetry run bot"
+## Используемые библиотеки
+1. redis **4.4.2** - *Python client for Redis database and key-value store*
+2. alembic **1.9.1** - *A database migration tool for SQLAlchemy.*
+3. aiogram **3.0.0b6** - *Modern and fully asynchronous framework for Telegram Bot API*
+4. asyncpg **0.27.0** - *An asyncio PostgreSQL driver*
+5. sqlalchemy **1.4.46** - *Database Abstraction Library*
 
+## Установка, настройка и запуск
+1. Установите: Redis, PostgreSQL, Poetry
+2. Установите все зависимости: poetry install
+3. Настройте файл конфигурации: bot.ini
+4. Проведите миграции: make migrate
+5. Запустите бота: poetry run bot
