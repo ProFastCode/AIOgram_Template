@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from enum import IntEnum
 
-from sqlalchemy import BigInteger, Column, Enum, DateTime, Float
+from sqlalchemy import BigInteger, Column, Enum, DateTime
 
 from .base import Base
 
@@ -12,7 +12,7 @@ class Role(IntEnum):
     ADMINISTRATOR = 2
 
 
-class User(Base):
+class UserModel(Base):
     """
     Основная модель пользователей
     """
