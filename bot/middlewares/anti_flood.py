@@ -14,10 +14,10 @@ class AntiFloodMiddleware(BaseMiddleware):
         self.redis = redis
 
     async def __call__(
-            self,
-            handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
-            event: Message,
-            data: Dict[str, Any],
+        self,
+        handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
+        event: Message,
+        data: Dict[str, Any],
     ) -> Any:
         user_id = event.from_user.id
         time_flood = get_flag(data, "anti_flood")
@@ -26,6 +26,8 @@ class AntiFloodMiddleware(BaseMiddleware):
             if not is_flood:
                 await self.redis.set(f"anti_flood:{user_id}", 1, time_flood)
             else:
-                return await event.answer(f"<b>Сработала защита от спама, ожидайте {time_flood}сек.</b>")
+                return await event.answer(
+                    f"<b>Сработала защита от спама, ожидайте {time_flood}сек.</b>"
+                )
 
         return await handler(event, data)

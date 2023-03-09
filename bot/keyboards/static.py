@@ -1,6 +1,11 @@
 from aiogram.utils.keyboard import InlineKeyboardMarkup, InlineKeyboardButton
 
-from bot.utils.callback_data_factories import UserCallback, ModeratorCallback, UserAction, ModeratorAction
+from bot.utils.callback_data_factories import (
+    UserCallback,
+    ModeratorCallback,
+    UserAction,
+    ModeratorAction,
+)
 
 
 RESET_STATE = InlineKeyboardMarkup(

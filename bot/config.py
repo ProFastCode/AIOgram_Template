@@ -30,10 +30,14 @@ class DBConfig:
         )
 
     def create_engine(self) -> AsyncEngine:
-        return create_async_engine(url=self.create_url(), echo=False, pool_pre_ping=True)
+        return create_async_engine(
+            url=self.create_url(), echo=False, pool_pre_ping=True
+        )
 
     def create_session(self) -> sessionmaker:
-        return sessionmaker(bind=self.create_engine(), class_=AsyncSession, expire_on_commit=False)
+        return sessionmaker(
+            bind=self.create_engine(), class_=AsyncSession, expire_on_commit=False
+        )
 
 
 @dataclass

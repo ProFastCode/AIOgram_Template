@@ -21,7 +21,11 @@ class SQLUser:
         """
         async with self.session() as session:
             async with session.begin():
-                return (await session.execute(select(UserModel).where(UserModel.id == user_id))).first()
+                return (
+                    await session.execute(
+                        select(UserModel).where(UserModel.id == user_id)
+                    )
+                ).first()
 
     async def add(self, user_id: int) -> None:
         """
@@ -42,8 +46,15 @@ class SQLUser:
         """
         async with self.session() as session:
             async with session.begin():
-                return (await session.execute(select(UserModel)
-                                              .where(UserModel.id == user_id))).scalars().first()
+                return (
+                    (
+                        await session.execute(
+                            select(UserModel).where(UserModel.id == user_id)
+                        )
+                    )
+                    .scalars()
+                    .first()
+                )
 
     async def get_by_role(self, role: Role):
         """
@@ -53,8 +64,11 @@ class SQLUser:
         """
         async with self.session() as session:
             async with session.begin():
-                return (await session.execute(select(UserModel)
-                                              .where(UserModel.role == role))).scalars()
+                return (
+                    await session.execute(
+                        select(UserModel).where(UserModel.role == role)
+                    )
+                ).scalars()
 
     async def update(self, user_id: int, **kwargs) -> None:
         """
@@ -65,5 +79,6 @@ class SQLUser:
         """
         async with self.session() as session:
             async with session.begin():
-                await session.execute(update(UserModel)
-                                      .where(UserModel.id == user_id).values(kwargs))
+                await session.execute(
+                    update(UserModel).where(UserModel.id == user_id).values(kwargs)
+                )

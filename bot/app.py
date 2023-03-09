@@ -43,6 +43,8 @@ async def main() -> None:
 
 def bot_run():
     # Логирование
-    basicConfig(level=INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
+    basicConfig(
+        level=INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+    )
     with suppress(KeyboardInterrupt):  # Игнорирование ошибок при остановке
         run(main())  # Запуск асинхронной функции

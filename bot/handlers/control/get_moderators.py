@@ -9,7 +9,7 @@ from bot.utils import ControlAction, ControlCallback
 
 
 # Создание маршрутизатора
-router = Router(name='Get moderators')
+router = Router(name="Get moderators")
 
 # Регистрация фильтров
 router.message.filter(RoleCheckFilter(Role.ADMINISTRATOR))
@@ -23,7 +23,10 @@ async def get_moderators(c: CallbackQuery, session: sessionmaker) -> None:
     """
     sql_user = SQLUser(session)
     moderators = await sql_user.get_by_role(Role.MODERATOR)
-    await c.message.answer('Все текущие модераторы на данный момент', reply_markup=ikb_moderators(moderators))
+    await c.message.answer(
+        "Все текущие модераторы на данный момент",
+        reply_markup=ikb_moderators(moderators),
+    )
 
 
 # Псевдоним

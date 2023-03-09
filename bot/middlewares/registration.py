@@ -15,10 +15,10 @@ class RegistrationMiddleware(BaseMiddleware):
         self.administrator_id = administrator_id
 
     async def __call__(
-            self,
-            handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
-            event: Message,
-            data: Dict[str, Any],
+        self,
+        handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
+        event: Message,
+        data: Dict[str, Any],
     ) -> Any:
         user_id = event.from_user.id
         sql_user = SQLUser(data["session"])

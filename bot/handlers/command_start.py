@@ -6,21 +6,23 @@ from bot.db import Role
 from bot.filters import RoleCheckFilter
 
 # Создание маршрутизатора
-router = Router(name='Command start')
+router = Router(name="Command start")
 
 # Регистрация фильтров
 router.message.filter(RoleCheckFilter(Role.USER))
 
 
 # Регистрация обработчиков
-@router.message(CommandStart(), flags={'anti_flood': 2})
+@router.message(CommandStart(), flags={"anti_flood": 2})
 async def start(m: Message) -> None:
     """
     Обработчик, который реагирует на команду /start
     """
-    await m.answer('Добро пожаловать\n\n'
-                   'Я шаблон телеграм бота.\n'
-                   f'Разработчик: @fast_code_profile')
+    await m.answer(
+        "Добро пожаловать\n\n"
+        "Я шаблон телеграм бота.\n"
+        f"Разработчик: @fast_code_profile"
+    )
 
 
 # Псевдоним

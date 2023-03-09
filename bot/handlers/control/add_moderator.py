@@ -10,7 +10,7 @@ from bot.keyboards.static import RESET_STATE
 from bot.utils.callback_data_factories import ControlCallback, ControlAction
 
 # Создание маршрутизатора
-router = Router(name='Add moderator')
+router = Router(name="Add moderator")
 
 # Регистрация фильтров
 router.message.filter(RoleCheckFilter(Role.ADMINISTRATOR))
@@ -22,13 +22,17 @@ async def add_moderator(c: CallbackQuery, state: FSMContext) -> None:
     """
     Обработчик, позволяет выдать права модератора обычному пользователю
     """
-    await c.message.answer('Отправьте id-Пользователя, котору хотите выдать права модератора',
-                           reply_markup=RESET_STATE)
+    await c.message.answer(
+        "Отправьте id-Пользователя, котору хотите выдать права модератора",
+        reply_markup=RESET_STATE,
+    )
     await state.set_state(ControlStates.waiting_id_new_moderator)
 
 
-@router.message(ControlStates.waiting_id_new_moderator, flags={'anti_flood': 2})
-async def waited_id_new_moderator(m: Message, state: FSMContext, session: sessionmaker) -> Message:
+@router.message(ControlStates.waiting_id_new_moderator, flags={"anti_flood": 2})
+async def waited_id_new_moderator(
+    m: Message, state: FSMContext, session: sessionmaker
+) -> Message:
     """
     Обработчик, который реагирует на отправку id нового модератора
     Выдаёт права новому пользователю, если он является пользователем бота и id действителен
@@ -38,13 +42,17 @@ async def waited_id_new_moderator(m: Message, state: FSMContext, session: sessio
         id_new_moderator = int(m.text)
         if await sql_user.is_exists(id_new_moderator):
             await sql_user.update(id_new_moderator, role=Role.MODERATOR)
-            await m.answer('Успешно выдал права новому модератору')
+            await m.answer("Успешно выдал права новому модератору")
         else:
-            return await m.answer('Этот id-пользователя не найден в базе данных,\n'
-                                  'Отправьте id-пользователя, который использует бота.',
-                                  reply_markup=RESET_STATE)
+            return await m.answer(
+                "Этот id-пользователя не найден в базе данных,\n"
+                "Отправьте id-пользователя, который использует бота.",
+                reply_markup=RESET_STATE,
+            )
     else:
-        return await m.answer('Отправьте цифровой id-пользователя', reply_markup=RESET_STATE)
+        return await m.answer(
+            "Отправьте цифровой id-пользователя", reply_markup=RESET_STATE
+        )
 
     await state.clear()
 
