@@ -1,4 +1,4 @@
-from .anti_flood_middleware import AntiFloodMiddleware
-from .registration_middleware import RegistrationMiddleware
+from .anti_flood import AntiFloodMiddleware
+from .registration import RegistrationMiddleware
 
-__all__ = ["RegistrationMiddleware", "AntiFloodMiddleware"]
+__all__ = ("RegistrationMiddleware", "AntiFloodMiddleware")

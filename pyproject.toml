@@ -18,6 +18,10 @@ ujson = "^5.7.0"
 [tool.poetry.scripts]
 bot = "bot.app:bot_run"
 
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+black = "^23.1.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

@@ -1,5 +1,5 @@
-from datetime import datetime as dt
 from enum import IntEnum
+from datetime import datetime as dt
 
 from sqlalchemy import BigInteger, Column, Enum, DateTime
 

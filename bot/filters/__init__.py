@@ -1,4 +1,4 @@
-from .chat_type_filter import ChatTypeFilter
-from .role_check_filter import RoleCheckFilter
+from .chat_type import ChatTypeFilter
+from .role_check import RoleCheckFilter
 
-__all__ = ["RoleCheckFilter", "ChatTypeFilter"]
+__all__ = ("RoleCheckFilter", "ChatTypeFilter")

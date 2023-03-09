@@ -1,0 +1,9 @@
+[flake8]
+count=True
+statistics=True
+show-source=True
+
+exclude = migrations
+max-line-length = 120
+select = C,E,F,W,B,B950
+ignore = E501,W291,W503,E203,F401

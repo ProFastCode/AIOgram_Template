@@ -19,12 +19,13 @@ class AntiFloodMiddleware(BaseMiddleware):
             event: Message,
             data: Dict[str, Any],
     ) -> Any:
-        anti_flood = get_flag(data, "anti_flood")
-        redis_get = await self.redis.get(f"anti_flood:{event.from_user.id}")
-        if anti_flood:
-            if not redis_get:
-                await self.redis.set(f"anti_flood:{event.from_user.id}", 1, anti_flood)
+        user_id = event.from_user.id
+        time_flood = get_flag(data, "anti_flood")
+        if time_flood:
+            is_flood = await self.redis.get(f"anti_flood:{user_id}")
+            if not is_flood:
+                await self.redis.set(f"anti_flood:{user_id}", 1, time_flood)
             else:
-                return await event.answer(f"<b>Сработала защита от спама, ожидай {anti_flood}.</b>")
+                return await event.answer(f"<b>Сработала защита от спама, ожидайте {time_flood}сек.</b>")
 
         return await handler(event, data)

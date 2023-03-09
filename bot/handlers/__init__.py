@@ -1,5 +1,6 @@
-from .administrator import administrator_router
-from .moderator import moderator_router
-from .user import user_router
+from .command_start import router_command_start
+from .reset_state import router_reset_state
+from .control import routers_control
 
-__all__ = ["user_router", "moderator_router", "administrator_router"]
+
+routers = (*routers_control, router_reset_state, router_command_start)
