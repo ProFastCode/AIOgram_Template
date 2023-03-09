@@ -1,6 +1,6 @@
 from aiogram import Router
-from aiogram.types import Message
 from aiogram.filters import CommandStart
+from aiogram.types import Message
 
 from bot.db import Role
 from bot.filters import RoleCheckFilter
@@ -26,4 +26,4 @@ async def start(m: Message) -> None:
 
 
 # Псевдоним
-router_command_start = router
+router_start = router

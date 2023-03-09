@@ -1,11 +1,10 @@
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
-from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import CallbackQuery
 
 from bot.db import Role
-from bot.utils.callback_data_factories import UserCallback, UserAction
 from bot.filters import RoleCheckFilter
+from bot.utils import StateAction, StateCallback
 
 # Создание маршрутизатора
 router = Router(name="Reset state")
@@ -15,20 +14,7 @@ router.message.filter(RoleCheckFilter(Role.USER))
 
 
 # Регистрация обработчиков
-@router.message(Command("cancel"), flags={"anti_flood": 2})
-async def command_reset_state(m: Message, state: FSMContext) -> None:
-    """
-    Обработчик, который реагирует на команду /cancel
-    Позволяет сбросить состояние пользователя
-    """
-    current_state = await state.get_state()
-    if current_state is None:
-        return
-
-    await state.clear()
-
-
-@router.callback_query(UserCallback.filter(F.action == UserAction.FUTURE))
+@router.callback_query(StateCallback.filter(F.action == StateAction.RESET))
 async def callback_reset_state(c: CallbackQuery, state: FSMContext) -> bool:
     """
     Обработчик, который реагирует на команду /cancel

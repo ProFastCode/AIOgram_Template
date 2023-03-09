@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 from redis.asyncio.client import Redis
 from sqlalchemy.engine import URL
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, AsyncEngine
+from sqlalchemy.orm import sessionmaker
 
 
 @dataclass

@@ -5,8 +5,8 @@ from sqlalchemy.orm import sessionmaker
 
 from bot.db import Role, SQLUser
 from bot.filters import RoleCheckFilter
+from bot.keyboards.basic import IKB_RESET_STATE
 from bot.utils import ControlStates
-from bot.keyboards.static import RESET_STATE
 from bot.utils.callback_data_factories import ControlCallback, ControlAction
 
 # Создание маршрутизатора
@@ -24,7 +24,7 @@ async def add_moderator(c: CallbackQuery, state: FSMContext) -> None:
     """
     await c.message.answer(
         "Отправьте id-Пользователя, котору хотите выдать права модератора",
-        reply_markup=RESET_STATE,
+        reply_markup=IKB_RESET_STATE,
     )
     await state.set_state(ControlStates.waiting_id_new_moderator)
 
@@ -47,11 +47,11 @@ async def waited_id_new_moderator(
             return await m.answer(
                 "Этот id-пользователя не найден в базе данных,\n"
                 "Отправьте id-пользователя, который использует бота.",
-                reply_markup=RESET_STATE,
+                reply_markup=IKB_RESET_STATE,
             )
     else:
         return await m.answer(
-            "Отправьте цифровой id-пользователя", reply_markup=RESET_STATE
+            "Отправьте цифровой id-пользователя", reply_markup=IKB_RESET_STATE
         )
 
     await state.clear()

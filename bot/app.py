@@ -5,8 +5,8 @@ from logging import INFO, basicConfig
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
 
-from bot.handlers import routers
 from bot.config import load_config
+from bot.handlers import routers
 from bot.middlewares import RegistrationMiddleware, AntiFloodMiddleware
 
 

@@ -1,6 +1,5 @@
-from .command_start import router_command_start
-from .reset_state import router_reset_state
+from .basic import routers_basic
 from .control import routers_control
 
 
-routers = (*routers_control, router_reset_state, router_command_start)
+routers = (*routers_basic, *routers_control)

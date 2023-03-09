@@ -7,7 +7,6 @@ from bot.filters import RoleCheckFilter
 from bot.keyboards.control import ikb_moderators
 from bot.utils import ControlAction, ControlCallback
 
-
 # Создание маршрутизатора
 router = Router(name="Get moderators")
 
