@@ -34,7 +34,7 @@ async def waited_id_new_moderator(
     m: Message, state: FSMContext, session: sessionmaker
 ) -> Message:
     """
-    Обработчик, который реагирует на отправку id нового модератора
+    Обработчик, который реагирует на отправку id нового модератора.
     Выдаёт права новому пользователю, если он является пользователем бота и id действителен
     """
     sql_user = SQLUser(session)

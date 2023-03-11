@@ -8,8 +8,8 @@ class ControlAction(IntEnum):
     Действия панели управления для администратора
     """
 
-    MODERATORS = 0
-    ADD_MODERATOR = 1
+    MODERATORS = 0  # Получить список модераторов
+    ADD_MODERATOR = 1  # Добавить нового модератора
 
 
 class ControlCallback(CallbackData, prefix="control"):
@@ -25,7 +25,7 @@ class StateAction(IntEnum):
     Действия с состоянием
     """
 
-    RESET = 0
+    RESET = 0  # Сбросить состояние пользователя
 
 
 class StateCallback(CallbackData, prefix="state"):

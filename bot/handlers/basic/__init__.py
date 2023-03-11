@@ -1,3 +1,7 @@
+"""
+Базовые обработчики, которые имееют небольшую логику
+"""
+
 from .reset_state import router_reset_state
 from .start import router_start
 
