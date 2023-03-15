@@ -3,13 +3,14 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 
 from bot.db import Role
-from bot.filters import RoleCheckFilter
+from bot.filters import RoleCheckFilter, ChatTypeFilter
 
 # Создание маршрутизатора
 router = Router(name="Command start")
 
 # Регистрация фильтров
 router.message.filter(RoleCheckFilter(Role.USER))
+router.message.filter(ChatTypeFilter(['private']))
 
 
 # Регистрация обработчиков

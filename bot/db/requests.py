@@ -59,7 +59,7 @@ class SQLUser:
 
     async def get_by_role(self, role: Role):
         """
-        Получить данные всех модераторов
+        Получить пользователей по роли
         :param role: Роль пользователей
         :return: UserModel
         """

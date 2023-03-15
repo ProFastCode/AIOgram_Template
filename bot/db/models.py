@@ -33,9 +33,7 @@ class UserModel(Base):
     def __str__(self) -> str:
         """
         Возвращает ID пользователя
-
         :param self: User
-
         :return: str
         """
         return f"User ID: {self.id}"

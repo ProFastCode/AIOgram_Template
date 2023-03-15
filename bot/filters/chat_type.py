@@ -5,9 +5,7 @@ from aiogram.types import Message
 class ChatTypeFilter(BaseFilter):
     """
     Фильтр проверки типа чата
-
     :param chat_types: Типы чатов
-
     :return: bool
     """
 
