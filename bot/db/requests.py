@@ -1,7 +1,7 @@
 from sqlalchemy import select, update
 from sqlalchemy.orm import sessionmaker
 
-from bot.db import UserModel, Role
+from bot.db import Role, UserModel
 
 
 class SQLUser:

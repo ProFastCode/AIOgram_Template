@@ -1,10 +1,11 @@
-from aiogram import Router, F
+from aiogram import F, Router
 from aiogram.types import CallbackQuery
 from sqlalchemy.orm import sessionmaker
 
 from bot.db import Role, SQLUser
 from bot.filters import RoleCheckFilter
-from bot.utils.callback_data_factories import ControlCallback, ControlAction
+from bot.utils.callback_data_factories import ControlAction, ControlCallback
+
 from .get_moderators import get_moderators
 
 # Создание маршрутизатора

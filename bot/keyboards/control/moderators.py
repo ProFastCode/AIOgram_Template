@@ -1,8 +1,5 @@
-from aiogram.utils.keyboard import (
-    InlineKeyboardMarkup,
-    InlineKeyboardBuilder,
-    InlineKeyboardButton,
-)
+from aiogram.utils.keyboard import (InlineKeyboardBuilder,
+                                    InlineKeyboardButton, InlineKeyboardMarkup)
 
 from bot.db import UserModel
 from bot.utils import ControlAction, ControlCallback

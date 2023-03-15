@@ -15,13 +15,12 @@ router.message.filter(RoleCheckFilter(Role.ADMINISTRATOR))
 
 # Регистрация обработчиков
 @router.message(Command("admin"))
-async def administrator(m: Message, add_text: str = '') -> None:
+async def administrator(m: Message, add_text: str = "") -> None:
     """
     Центр управления для администратора
     """
     await m.answer(
-        "<b>Центр управления ⚙️\n"
-        f"{add_text}</b>",
+        "<b>Центр управления ⚙️\n" f"{add_text}</b>",
         reply_markup=ikb_control(Role.ADMINISTRATOR),
     )
 

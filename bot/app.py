@@ -7,7 +7,7 @@ from aiogram.fsm.storage.redis import RedisStorage
 
 from bot.config import load_config
 from bot.handlers import routers
-from bot.middlewares import RegistrationMiddleware, AntiFloodMiddleware
+from bot.middlewares import AntiFloodMiddleware, RegistrationMiddleware
 
 
 async def main() -> None:

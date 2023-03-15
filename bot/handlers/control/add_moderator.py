@@ -1,13 +1,14 @@
-from aiogram import Router, F
+from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import CallbackQuery, Message
 from sqlalchemy.orm import sessionmaker
 
 from bot.db import Role, SQLUser
 from bot.filters import RoleCheckFilter
 from bot.keyboards.basic import IKB_RESET_STATE
 from bot.utils import ControlStates
-from bot.utils.callback_data_factories import ControlCallback, ControlAction
+from bot.utils.callback_data_factories import ControlAction, ControlCallback
+
 from .administrator import administrator
 
 # Создание маршрутизатора
@@ -55,7 +56,7 @@ async def waited_id_new_moderator(
         )
 
     await state.clear()
-    return await administrator(m, '✅ Новый модератор добавлен успешно')
+    return await administrator(m, "✅ Новый модератор добавлен успешно")
 
 
 # Псевдоним

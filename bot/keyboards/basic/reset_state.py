@@ -1,6 +1,6 @@
-from aiogram.utils.keyboard import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.utils.keyboard import InlineKeyboardButton, InlineKeyboardMarkup
 
-from bot.utils import BasicCallback, BasicAction
+from bot.utils import BasicAction, BasicCallback
 
 IKB_RESET_STATE = InlineKeyboardMarkup(
     inline_keyboard=[

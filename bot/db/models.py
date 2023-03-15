@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from enum import IntEnum
 
-from sqlalchemy import BigInteger, Column, Enum, DateTime, String
+from sqlalchemy import BigInteger, Column, DateTime, Enum, String
 
 from .base import Base
 
