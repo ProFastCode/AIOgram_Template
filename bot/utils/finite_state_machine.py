@@ -7,3 +7,4 @@ class ControlStates(StatesGroup):
     """
 
     waiting_id_new_moderator = State()
+    waiting_mailing_content = State()

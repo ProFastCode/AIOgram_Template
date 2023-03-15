@@ -10,6 +10,12 @@ from bot.utils import ControlAction, ControlCallback
 
 def ikb_control(role: Role) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
+    builder.add(
+        InlineKeyboardButton(
+            text="📨 Рассылка",
+            callback_data=ControlCallback(action=ControlAction.SEND_MAILING).pack(),
+        )
+    )
     if role >= Role.ADMINISTRATOR:
         builder.add(
             InlineKeyboardButton(

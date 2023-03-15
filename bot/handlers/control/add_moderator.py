@@ -43,7 +43,6 @@ async def waited_id_new_moderator(
         id_new_moderator = int(m.text)
         if await sql_user.is_exists(id_new_moderator):
             await sql_user.update(id_new_moderator, role=Role.MODERATOR)
-            await m.answer("<b>✅ Новый модератор добавлен успешно</b>")
         else:
             return await m.answer(
                 "<b>✖️ Этот пользователь не использует бота,\n"
@@ -56,7 +55,7 @@ async def waited_id_new_moderator(
         )
 
     await state.clear()
-    return await administrator(m)
+    return await administrator(m, '✅ Новый модератор добавлен успешно')
 
 
 # Псевдоним
