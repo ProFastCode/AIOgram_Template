@@ -11,7 +11,14 @@ from bot.utils import ControlAction, ControlCallback
 def ikb_moderators(moderators: list[UserModel]) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     for moderator in moderators:
-        builder.add(InlineKeyboardButton(text=moderator.id, callback_data="0"))
+        builder.add(
+            InlineKeyboardButton(
+                text=moderator.full_name,
+                callback_data=ControlCallback(
+                    action=ControlAction.DEMOTE_MODERATOR, moderator_id=moderator.id
+                ).pack(),
+            )
+        )
 
     builder.add(
         InlineKeyboardButton(

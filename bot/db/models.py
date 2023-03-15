@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from enum import IntEnum
 
-from sqlalchemy import BigInteger, Column, Enum, DateTime
+from sqlalchemy import BigInteger, Column, Enum, DateTime, String
 
 from .base import Base
 
@@ -22,6 +22,7 @@ class UserModel(Base):
         BigInteger, nullable=False, primary_key=True
     )  # telegram id пользователя
     role = Column(Enum(Role), default=Role.USER)  # Роль пользователя в проекте
+    full_name = Column(String, nullable=False)  # Полное имя пользователя
     update_date = Column(
         DateTime, default=dt.today(), onupdate=dt.today()
     )  # Дата обновления пользователя

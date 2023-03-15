@@ -1,4 +1,4 @@
 from .moderators import ikb_moderators
-from .panel import IKB_PANEL
+from .control import ikb_control
 
-__all__ = ("IKB_PANEL", "ikb_moderators")
+__all__ = ("ikb_control", "ikb_moderators")

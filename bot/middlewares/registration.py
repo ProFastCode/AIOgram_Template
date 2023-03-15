@@ -21,10 +21,11 @@ class RegistrationMiddleware(BaseMiddleware):
         data: Dict[str, Any],
     ) -> Any:
         user_id = event.from_user.id
+        full_name = event.from_user.full_name
         sql_user = SQLUser(data["session"])
         if not await sql_user.is_exists(user_id):
-            await sql_user.add(user_id)
-            if user_id == self.administrator_id:
-                await sql_user.update(user_id, role=Role.ADMINISTRATOR)
+            await sql_user.add(user_id=user_id, full_name=full_name)
+            if user_id == int(self.administrator_id):
+                await sql_user.update(user_id=user_id, role=Role.ADMINISTRATOR)
 
         return await handler(event, data)

@@ -4,7 +4,7 @@ from aiogram.types import CallbackQuery
 
 from bot.db import Role
 from bot.filters import RoleCheckFilter
-from bot.utils import StateAction, StateCallback
+from bot.utils import BasicAction, BasicCallback
 
 # Создание маршрутизатора
 router = Router(name="Reset state")
@@ -14,18 +14,17 @@ router.message.filter(RoleCheckFilter(Role.USER))
 
 
 # Регистрация обработчиков
-@router.callback_query(StateCallback.filter(F.action == StateAction.RESET))
+@router.callback_query(BasicCallback.filter(F.action == BasicAction.RESET))
 async def callback_reset_state(c: CallbackQuery, state: FSMContext) -> bool:
     """
-    Обработчик, который реагирует на команду /cancel
-    Позволяет сбросить состояние пользователя
+    Обработчик, позволяет сбросить текущее состояние
     """
     current_state = await state.get_state()
     if current_state is None:
-        return await c.answer("Вам нечего отменять")
+        return await c.answer("🫗 Вам нечего отменять")
 
     await state.clear()
-    await c.answer("Отмена")
+    await c.answer("❌ Отмена")
 
 
 # Псевдоним

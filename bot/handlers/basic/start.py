@@ -19,9 +19,9 @@ async def start(m: Message) -> None:
     Обработчик, который реагирует на команду /start
     """
     await m.answer(
-        "Добро пожаловать\n\n"
+        "<b>Добро пожаловать\n\n"
         "Я шаблон телеграм бота.\n"
-        f"Разработчик: @fast_code_profile"
+        "Разработчик: @fast_code_profile</b>"
     )
 
 

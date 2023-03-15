@@ -10,6 +10,7 @@ class ControlAction(IntEnum):
 
     MODERATORS = 0  # Получить список модераторов
     ADD_MODERATOR = 1  # Добавить нового модератора
+    DEMOTE_MODERATOR = 2  # Разжаловать модератора
 
 
 class ControlCallback(CallbackData, prefix="control"):
@@ -18,19 +19,20 @@ class ControlCallback(CallbackData, prefix="control"):
     """
 
     action: ControlAction
+    moderator_id: int = None
 
 
-class StateAction(IntEnum):
+class BasicAction(IntEnum):
     """
-    Действия с состоянием
+    Действия с базовым функционалам
     """
 
     RESET = 0  # Сбросить состояние пользователя
 
 
-class StateCallback(CallbackData, prefix="state"):
+class BasicCallback(CallbackData, prefix="state"):
     """
-    Обработка действий состояния
+    Обработка действий базового функционала
     """
 
-    action: StateAction
+    action: BasicAction

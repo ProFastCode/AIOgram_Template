@@ -2,14 +2,14 @@ from .finite_state_machine import ControlStates
 from .callback_data_factories import (
     ControlCallback,
     ControlAction,
-    StateCallback,
-    StateAction,
+    BasicAction,
+    BasicCallback,
 )
 
 __all__ = (
     "ControlStates",
     "ControlCallback",
     "ControlAction",
-    "StateCallback",
-    "StateAction",
+    "BasicCallback",
+    "BasicAction",
 )

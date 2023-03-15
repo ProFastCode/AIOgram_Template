@@ -22,8 +22,8 @@ async def get_moderators(c: CallbackQuery, session: sessionmaker) -> None:
     """
     sql_user = SQLUser(session)
     moderators = await sql_user.get_by_role(Role.MODERATOR)
-    await c.message.answer(
-        "Все текущие модераторы на данный момент",
+    await c.message.edit_text(
+        "<b>Текущие модераторы 👥</b>",
         reply_markup=ikb_moderators(moderators),
     )
 

@@ -8,6 +8,7 @@ from bot.filters import RoleCheckFilter
 from bot.keyboards.basic import IKB_RESET_STATE
 from bot.utils import ControlStates
 from bot.utils.callback_data_factories import ControlCallback, ControlAction
+from .administrator import administrator
 
 # Создание маршрутизатора
 router = Router(name="Add moderator")
@@ -22,8 +23,8 @@ async def add_moderator(c: CallbackQuery, state: FSMContext) -> None:
     """
     Обработчик, позволяет выдать права модератора обычному пользователю
     """
-    await c.message.answer(
-        "Отправьте id-Пользователя, котору хотите выдать права модератора",
+    await c.message.edit_text(
+        "<b>🆔 Отправьте цифровой id, нового модератора</b>",
         reply_markup=IKB_RESET_STATE,
     )
     await state.set_state(ControlStates.waiting_id_new_moderator)
@@ -32,7 +33,7 @@ async def add_moderator(c: CallbackQuery, state: FSMContext) -> None:
 @router.message(ControlStates.waiting_id_new_moderator, flags={"anti_flood": 2})
 async def waited_id_new_moderator(
     m: Message, state: FSMContext, session: sessionmaker
-) -> Message:
+) -> Message | None:
     """
     Обработчик, который реагирует на отправку id нового модератора.
     Выдаёт права новому пользователю, если он является пользователем бота и id действителен
@@ -42,19 +43,20 @@ async def waited_id_new_moderator(
         id_new_moderator = int(m.text)
         if await sql_user.is_exists(id_new_moderator):
             await sql_user.update(id_new_moderator, role=Role.MODERATOR)
-            await m.answer("Успешно выдал права новому модератору")
+            await m.answer("<b>✅ Новый модератор добавлен успешно</b>")
         else:
             return await m.answer(
-                "Этот id-пользователя не найден в базе данных,\n"
-                "Отправьте id-пользователя, который использует бота.",
+                "<b>✖️ Этот пользователь не использует бота,\n"
+                "ℹ️ Отправьте id-пользователя, который использует бота.</b>",
                 reply_markup=IKB_RESET_STATE,
             )
     else:
         return await m.answer(
-            "Отправьте цифровой id-пользователя", reply_markup=IKB_RESET_STATE
+            "<b>Неверно указан id-пользователя. ℹ️</b>", reply_markup=IKB_RESET_STATE
         )
 
     await state.clear()
+    return await administrator(m)
 
 
 # Псевдоним

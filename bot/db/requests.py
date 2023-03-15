@@ -27,16 +27,17 @@ class SQLUser:
                     )
                 ).first()
 
-    async def add(self, user_id: int) -> None:
+    async def add(self, user_id: int, full_name: str) -> None:
         """
         Добавить нового пользователя
         :param user_id: Телеграм id пользователя
+        :param full_name: Полное имя пользователя
         :return: None
         """
         async with self.session() as session:
             async with session.begin():
-                new_user = UserModel(id=user_id)
-                session.add(new_user)
+                user = UserModel(id=user_id, full_name=full_name)
+                session.add(user)
 
     async def get(self, user_id: int) -> UserModel:
         """
