@@ -28,7 +28,7 @@ async def mailing_list(c: CallbackQuery, state: FSMContext) -> None:
     await state.set_state(ControlStates.waiting_mailing_content)
 
 
-@router.message(ControlStates.waiting_mailing_content, flags={"anti_flood": 2})
+@router.message(ControlStates.waiting_mailing_content, flags={"delay": 2})
 async def waited_mailing_content(
     m: Message, state: FSMContext, session: sessionmaker
 ) -> Message | None:

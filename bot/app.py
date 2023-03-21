@@ -11,6 +11,11 @@ from bot.middlewares import AntiFloodMiddleware, RegistrationMiddleware
 
 
 async def main() -> None:
+    # Логирование
+    basicConfig(
+        level=INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+    )
+
     # Конфигурация
     config = load_config("bot.ini")
 
@@ -26,7 +31,9 @@ async def main() -> None:
     dp = Dispatcher(storage=storage)
 
     # Зарегистрировать ПО промежуточного слоя
-    dp.message.outer_middleware(RegistrationMiddleware(config.bot.administrator_id))
+    dp.message.outer_middleware(
+        RegistrationMiddleware(int(config.bot.administrator_id))
+    )
     dp.message.middleware(AntiFloodMiddleware(redis))
 
     # Регистрация маршрутизаторов
@@ -42,9 +49,5 @@ async def main() -> None:
 
 
 def bot_run():
-    # Логирование
-    basicConfig(
-        level=INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s"
-    )
     with suppress(KeyboardInterrupt):  # Игнорирование ошибок при остановке
         run(main())  # Запуск асинхронной функции

@@ -14,7 +14,7 @@ router.message.filter(ChatTypeFilter(["private"]))
 
 
 # Регистрация обработчиков
-@router.message(CommandStart(), flags={"anti_flood": 2})
+@router.message(CommandStart(), flags={"delay": 2})
 async def start(m: Message) -> None:
     """
     Обработчик, который реагирует на команду /start

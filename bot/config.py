@@ -48,11 +48,7 @@ class RedisConfig:
     password: str
 
     def connect(self):
-        return Redis(
-            host=self.host,
-            username=self.username,
-            password=self.password,
-        )
+        return Redis(host=self.host, username=self.username, password=self.password)
 
 
 @dataclass
@@ -63,6 +59,10 @@ class Config:
 
 
 def load_config(path: str):
+    """
+    Загрузка конфигурации
+    :param path: Путь к файлу конфигурации
+    """
     file_config = configparser.ConfigParser()
     file_config.read(path)
     return Config(

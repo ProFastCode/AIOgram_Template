@@ -31,7 +31,7 @@ async def add_moderator(c: CallbackQuery, state: FSMContext) -> None:
     await state.set_state(ControlStates.waiting_id_new_moderator)
 
 
-@router.message(ControlStates.waiting_id_new_moderator, flags={"anti_flood": 2})
+@router.message(ControlStates.waiting_id_new_moderator, flags={"delay": 2})
 async def waited_id_new_moderator(
     m: Message, state: FSMContext, session: sessionmaker
 ) -> Message | None:
