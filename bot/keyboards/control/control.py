@@ -20,5 +20,11 @@ def ikb_control(role: Role) -> InlineKeyboardMarkup:
                 callback_data=ControlCallback(action=ControlAction.MODERATORS).pack(),
             )
         )
+        builder.add(
+            InlineKeyboardButton(
+                text="📊 Статистика",
+                callback_data=ControlCallback(action=ControlAction.STATISTICS).pack(),
+            )
+        )
     builder.adjust(2)
     return builder.as_markup()

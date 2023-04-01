@@ -8,6 +8,7 @@ from .demote_moderator import router_demote_moderator
 from .get_moderators import router_get_moderators
 from .mailing_list import router_mailing_list
 from .moderator import router_moderator
+from .statistics import router_get_statistics
 
 routers_control = (
     router_administrator,
@@ -16,4 +17,5 @@ routers_control = (
     router_demote_moderator,
     router_mailing_list,
     router_moderator,
+    router_get_statistics,
 )

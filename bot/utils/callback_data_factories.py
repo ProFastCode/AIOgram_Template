@@ -12,6 +12,7 @@ class ControlAction(IntEnum):
     ADD_MODERATOR = 1  # Добавить нового модератора
     DEMOTE_MODERATOR = 2  # Разжаловать модератора
     SEND_MAILING = 3  # Отправить рассылку
+    STATISTICS = 4  # Получить статистику
 
 
 class ControlCallback(CallbackData, prefix="control"):

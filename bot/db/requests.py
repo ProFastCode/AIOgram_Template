@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from sqlalchemy import select, update
 from sqlalchemy.orm import sessionmaker
 
@@ -83,3 +85,14 @@ class SQLUser:
                 await session.execute(
                     update(UserModel).where(UserModel.id == user_id).values(kwargs)
                 )
+
+    async def get_users_in_week(self) -> list[datetime]:
+        """
+        Получить дату регистрации новых пользователей за неделю
+        :return: list[datetime]
+        """
+        async with self.session() as session:
+            async with session.begin():
+                week = datetime.today() - timedelta(days=7)
+                return list((await session.execute(select(UserModel.registration_date)
+                                                   .where(UserModel.registration_date >= week))).scalars())
