@@ -23,6 +23,7 @@ class UserModel(Base):
     )  # telegram id пользователя
     role = Column(Enum(Role), default=Role.USER)  # Роль пользователя в проекте
     full_name = Column(String, nullable=False)  # Полное имя пользователя
+    referral_id = Column(BigInteger)  # telegram id реферала
     update_date = Column(
         DateTime, default=dt.today(), onupdate=dt.today()
     )  # Дата обновления пользователя
