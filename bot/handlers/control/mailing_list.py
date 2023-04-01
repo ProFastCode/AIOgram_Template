@@ -1,7 +1,10 @@
+from contextlib import suppress
+
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 from sqlalchemy.orm import sessionmaker
+from aiogram.exceptions import TelegramForbiddenError, TelegramBadRequest
 
 from bot.db import Role, SQLUser
 from bot.filters import RoleCheckFilter
@@ -37,14 +40,13 @@ async def waited_mailing_content(
     Отправляет рассылку пользователям бота.
     """
     sql_user = SQLUser(session)
-    users = await sql_user.get_by_role(Role.USER)
-    for user in users:
-        await m.copy_to(user.id)
+    for user in await sql_user.get_by_role(Role.USER):
+        with suppress(TelegramForbiddenError, TelegramBadRequest):
+            await m.copy_to(user.id)
 
-    administrators = await sql_user.get_by_role(Role.ADMINISTRATOR)
-    for data_administrator in administrators:
+    for user_administrator in await sql_user.get_by_role(Role.ADMINISTRATOR):
         await m.copy_to(
-            data_administrator.id,
+            user_administrator.id,
             reply_markup=ikb_mailing_list(m.from_user.full_name, m.from_user.username),
         )
 
